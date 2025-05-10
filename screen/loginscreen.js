@@ -12,6 +12,7 @@ import {
 import Toast from "react-native-toast-message";
 import { url } from "../utils/config";
 import Entypo from "@expo/vector-icons/Entypo";
+import { setToken } from "../utils/tokenStorage";
 
 function LoginScreen() {
   const loginData = {
@@ -49,6 +50,8 @@ function LoginScreen() {
       const res = await axios.post(`${url}/auth/login`, login);
       setIsLoading(false);
       setLogin(loginData);
+      console.log(res.data);
+      setToken(res.data.token);
       navigation.navigate("Profile");
     } catch (error) {
       Toast.show({
@@ -97,6 +100,7 @@ function LoginScreen() {
       <Button
         title={isloading ? "Loading..." : "Submit"}
         onPress={handleSubmit}
+        disabled={isloading}
       />
 
       <View style={styles.confirmationContainer}>
