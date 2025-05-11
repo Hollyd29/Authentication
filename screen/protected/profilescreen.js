@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { Button, Text, View } from "react-native";
-import { getToken, removeToken } from "../utils/tokenStorage";
+import { getToken, removeToken } from "../../utils/tokenStorage";
 
 function ProfileScreen({ setIsLoggingIn }) {
   const navigation = useNavigation();
@@ -19,7 +19,11 @@ function ProfileScreen({ setIsLoggingIn }) {
 
     navigation.setOptions({
       headerRight: () => {
-        return <Button title="Logout" onPress={handleLogout} />;
+        return (
+          <View style={{ paddingRight: 16 }}>
+            <Button title="Logout" onPress={handleLogout} />
+          </View>
+        );
       },
     });
   }, []);
@@ -30,6 +34,19 @@ function ProfileScreen({ setIsLoggingIn }) {
       <Text>Age: UNDIFINE</Text>
       <Text>Sex: MALE</Text>
       <Text>Habit: ALWAYS TRY MY BEST TO MAKE GOOD EARNINGS</Text>
+
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginInline: "auto",
+          gap: 8,
+          marginTop: 8,
+        }}
+      >
+        <Button title="Profile" />
+        <Button title="Settings" />
+      </View>
     </View>
   );
 }

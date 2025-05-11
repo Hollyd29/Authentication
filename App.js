@@ -1,14 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, View } from "react-native";
+import { Button, TouchableWithoutFeedback, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import RegisterScreen from "./screen/registerscreen";
-import LoginScreen from "./screen/loginscreen.js";
+import RegisterScreen from "./screen/unprotected/registerscreen.js";
+import LoginScreen from "./screen/unprotected/loginscreen.js";
 import Toast from "react-native-toast-message";
-import ProfileScreen from "./screen/profilescreen.js";
+import ProfileScreen from "./screen/protected/profilescreen.js";
 import { getToken, setToken } from "./utils/tokenStorage.js";
 import { useEffect, useState } from "react";
+import HomeScreen from "./screen/protected/homescreen.js";
+import AboutScreen from "./screen/protected/aboutscreen.js";
+import ProtectRoutes from "./screen/protectedRoutes.js";
+import UnprotectedRoutes from "./screen/unProtectedRoutes.js";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,28 +37,12 @@ function App() {
       <StatusBar style="auto" />
       <NavigationContainer>
         {isLoggedIn ? (
-          <Tab.Navigator>
-            <Tab.Screen name="Profile">
-              {() => <ProfileScreen setIsLoggingIn={setIsLoggedIn} />}
-            </Tab.Screen>
-          </Tab.Navigator>
+          <ProtectRoutes setIsLoggedIn={setIsLoggedIn} />
         ) : (
-          <Stack.Navigator
-            initialRouteName="Login"
-            screenOptions={{
-              headerBackVisible: false,
-            }}
-          >
-            <Stack.Screen name="Login">
-              {() => (
-                <LoginScreen
-                  setIsLoggedIn={setIsLoggedIn}
-                  isLoginLoading={isLoginLoading}
-                />
-              )}
-            </Stack.Screen>
-            <Stack.Screen name="Register" component={RegisterScreen} />
-          </Stack.Navigator>
+          <UnprotectedRoutes
+            setIsLoggedIn={setIsLoggedIn}
+            setIsLoginLoading={setIsLoginLoading}
+          />
         )}
       </NavigationContainer>
 

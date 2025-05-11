@@ -10,9 +10,9 @@ import {
   View,
 } from "react-native";
 import Toast from "react-native-toast-message";
-import { url } from "../utils/config";
+import { url } from "../../utils/config";
 import Entypo from "@expo/vector-icons/Entypo";
-import { getToken, setToken } from "../utils/tokenStorage";
+import { getToken, setToken } from "../../utils/tokenStorage";
 
 function LoginScreen({ setIsLoggedIn, isLoginLoading }) {
   const loginData = {
