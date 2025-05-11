@@ -3,12 +3,12 @@ import { useEffect } from "react";
 import { Button, Text, View } from "react-native";
 import { getToken, removeToken } from "../../utils/tokenStorage";
 
-function ProfileScreen({ setIsLoggingIn }) {
+function ProfileScreen({ setIsLoggedIn }) {
   const navigation = useNavigation();
 
   function handleLogout() {
     removeToken();
-    setIsLoggingIn(null);
+    setIsLoggedIn(null);
   }
 
   useEffect(() => {
