@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useState } from "react";
 import {
@@ -12,9 +12,9 @@ import {
 import Toast from "react-native-toast-message";
 import { url } from "../utils/config";
 import Entypo from "@expo/vector-icons/Entypo";
-import { setToken } from "../utils/tokenStorage";
+import { getToken, setToken } from "../utils/tokenStorage";
 
-function LoginScreen() {
+function LoginScreen({ setIsLoggedIn, isLoginLoading }) {
   const loginData = {
     email: "",
     password: "",
@@ -49,8 +49,12 @@ function LoginScreen() {
       setIsLoading(true);
       const res = await axios.post(`${url}/auth/login`, login);
       setIsLoading(false);
-      setLogin(loginData);
-      console.log(res.data);
+      setLogin(loginData); // Clear input fields
+
+      // Set token to handle screen to display
+      setIsLoggedIn(res.data.token);
+      isLoginLoading(false);
+
       setToken(res.data.token);
       navigation.navigate("Profile");
     } catch (error) {
