@@ -6,6 +6,8 @@ import ProfileScreen from "./protected/profilescreen";
 import AboutScreen from "./protected/aboutscreen";
 import HomeScreen from "./protected/homescreen";
 import EditProfile from "./protected/editProfile";
+import GetMessageScreen from "./protected/getmessagescreen";
+import AllMessageScreen from "./protected/allmessagescreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -13,7 +15,7 @@ const Stack = createNativeStackNavigator();
 function ProfileStack({ setIsLoggedIn }) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="ProfileMain" options={{ title: "Profile" }}>
+      <Stack.Screen name="ProfileMain" options={{ title: "Main Profile" }}>
         {() => <ProfileScreen setIsLoggedIn={setIsLoggedIn} />}
       </Stack.Screen>
 
@@ -21,6 +23,24 @@ function ProfileStack({ setIsLoggedIn }) {
         name="EditProfile"
         component={EditProfile}
         options={{ title: "Edit Profile" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function HomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home">{() => <HomeScreen />}</Stack.Screen>
+      <Stack.Screen
+        name="Getmessage"
+        options={{ title: "Get Message" }}
+        component={GetMessageScreen}
+      />
+      <Stack.Screen
+        name="Allmessage"
+        options={{ title: "All Message" }}
+        component={AllMessageScreen}
       />
     </Stack.Navigator>
   );
@@ -49,13 +69,15 @@ function ProtectRoutes({ setIsLoggedIn }) {
 
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => {
             return <Entypo name="home" size={24} color={color} />;
           },
+          headerShown: false,
         }}
-      />
+      >
+        {() => <HomeStack />}
+      </Tab.Screen>
       <Tab.Screen
         name="About"
         component={AboutScreen}

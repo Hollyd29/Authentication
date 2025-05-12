@@ -44,7 +44,10 @@ function ProfileScreen({ setIsLoggedIn }) {
           marginTop: 8,
         }}
       >
-        <Button title="Profile" />
+        <Button
+          title="Edit Profile"
+          onPress={() => navigation.navigate("EditProfile")}
+        />
         <Button title="Settings" />
       </View>
     </View>
